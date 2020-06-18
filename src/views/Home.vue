@@ -1,8 +1,14 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js App" />
-  </div>
+  <sui-container class="cont">
+    <div class="home">
+      <h2 class="ui blue header">
+        <img src="../assets/logo.svg" class="ui image" />
+        <div class="content">Twitter analysis platform</div>
+      </h2>
+
+      <HelloWorld msg="Welcome to Your Vue.js App" />
+    </div>
+  </sui-container>
 </template>
 
 <script>
@@ -12,7 +18,12 @@ import HelloWorld from "@/components/HelloWorld.vue";
 export default {
   name: "Home",
   components: {
-    HelloWorld
-  }
+    HelloWorld,
+  },
 };
 </script>
+<style>
+.cont {
+  margin-top: 10%;
+}
+</style>
