@@ -4,14 +4,11 @@
       <sui-grid-column>
         <sui-segment piled style="height: 400px">
           dfssdfsd
-          <MapBox />
-          sdfsd
+          <MapBox />sdfsd
         </sui-segment>
       </sui-grid-column>
       <sui-grid-column>
-        <sui-segment piled>
-          dfsfsdfsssssssssssssssssss ss ssssssssssaaassssssssssss
-        </sui-segment>
+        <sui-segment piled>{{ $store.state.coordinates.lat }}</sui-segment>
       </sui-grid-column>
     </sui-grid-row>
     <sui-grid-row :columns="3">
@@ -36,15 +33,15 @@
 
 <script>
 import MapBox from "./MapBox";
-
+// import store from "../store";
 export default {
   name: "HelloWorld",
   components: {
-    MapBox,
+    MapBox
   },
   props: {
-    msg: String,
-  },
+    msg: String
+  }
 };
 </script>
 
