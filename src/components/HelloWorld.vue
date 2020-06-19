@@ -2,13 +2,36 @@
   <sui-grid divided="vertically">
     <sui-grid-row :columns="2">
       <sui-grid-column>
-        <sui-segment piled style="height: 400px">
-          dfssdfsd
-          <MapBox />sdfsd
+        <sui-segment piled style="height: 440px">
+          <h2>set coordination</h2>
+          <MapBox style="height:300px" />
+          <div style="margin:10px">
+            <sui-label>
+              <sui-icon name="map marker" color="red" />longitude
+              <sui-label-detail>
+                {{
+                $store.state.coordinates.lng
+                }}
+              </sui-label-detail>
+            </sui-label>
+            <sui-label>
+              <sui-icon name="map marker" color="blue" />latitude
+              <sui-label-detail>
+                {{
+                $store.state.coordinates.lat
+                }}
+              </sui-label-detail>
+            </sui-label>
+          </div>
         </sui-segment>
       </sui-grid-column>
       <sui-grid-column>
-        <sui-segment piled>{{ $store.state.coordinates.lat }}</sui-segment>
+        <sui-segment piled>
+          <AddKeywordsPanel />
+        </sui-segment>
+        <sui-segment raised>
+          <KeywordsPanel />
+        </sui-segment>
       </sui-grid-column>
     </sui-grid-row>
     <sui-grid-row :columns="3">
@@ -33,11 +56,15 @@
 
 <script>
 import MapBox from "./MapBox";
+import AddKeywordsPanel from "./AddKeywordsPanel";
+import KeywordsPanel from "./KeywordsPanel";
 // import store from "../store";
 export default {
   name: "HelloWorld",
   components: {
-    MapBox
+    AddKeywordsPanel,
+    MapBox,
+    KeywordsPanel
   },
   props: {
     msg: String

@@ -1,0 +1,39 @@
+<template>
+  <div>
+    keywords
+    <div v-for="val in getKeyWords" :key="val">
+      <a is="sui-label">
+        {{ val }}
+        <sui-icon name="delete" v-on:click="deleteKeyWord(val)" />
+      </a>
+    </div>
+  </div>
+</template>
+
+<script>
+// import store from "../store";
+export default {
+  name: "KeywordsPanel",
+  components: {},
+  props: {
+    msg: String,
+    keyWordsArray: Array
+  },
+  computed: {
+    getKeyWords() {
+      return this.$store.state.keyWords;
+    }
+  },
+  data: function() {
+    return {
+      keyWords: this.keyWordsArray
+    };
+  },
+  methods: {
+    deleteKeyWord: function(keyWord) {
+      this.$store.dispatch("deleteKeyword", keyWord);
+      console.log(keyWord);
+    }
+  }
+};
+</script>
