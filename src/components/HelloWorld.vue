@@ -128,6 +128,7 @@ export default {
       console.log(this.$socket);
       this.$socket.emit("testEvent", {
         keyWords: this.$store.state.keyWords,
+        geoCode: this.$store.state.coordinates,
       });
       // axios(config)
       //   .then(function(response) {
