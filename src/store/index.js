@@ -7,6 +7,7 @@ export default new Vuex.Store({
   state: {
     coordinates: { lat: "somewhere", lng: "somewhere" },
     keyWords: [1, 2, 3],
+    tweetsCount: "not set",
   },
   mutations: {
     setCoordinates(state, coord) {
@@ -29,8 +30,16 @@ export default new Vuex.Store({
         return item !== keyWord;
       });
     },
+    setTweetsCount(state, count) {
+      state.tweetsCount = count;
+    },
   },
   actions: {
+    SOCKET_tweetsCount({ commit }, server) {
+      commit("setTweetsCount", server.tweetsCount);
+      console.log(server);
+    },
+
     setCoordinates({ commit }, coord) {
       commit("setCoordinates", coord);
     },
