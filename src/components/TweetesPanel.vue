@@ -1,12 +1,11 @@
 <template>
   <div>
-    keywords
+    <h2 class="ui header left dividing aligned">Tweetes</h2>
     <div v-for="val in getFirstLessTweetes" :key="val.id">
-      <a is="sui-label">
-        <sui-segment vertical>
-          {{ val.text }}
-        </sui-segment>
-      </a>
+      <sui-segment vertical>
+        {{ val.text }}
+        <sui-divider />
+      </sui-segment>
     </div>
   </div>
 </template>

@@ -1,10 +1,13 @@
 <template>
   <sui-container class="cont">
     <div class="home">
-      <h2 class="ui blue header">
+      <sui-header size="huge" class="blue">
         <img src="../assets/logo.svg" class="ui image" />
-        <div class="content">Twitter analysis platform</div>
-      </h2>
+        <div class="content">Twitter location based analysis<br /></div>
+      </sui-header>
+      <sui-segment color="blue">
+        <h3>Search for your favorite topic in twitter</h3></sui-segment
+      >
 
       <HelloWorld msg="Welcome to Your Vue.js App" />
     </div>

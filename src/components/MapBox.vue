@@ -1,18 +1,20 @@
 <template>
-  <MglMap
-    :accessToken="accessToken"
-    :mapStyle.sync="mapStyle"
-    :center="coordinates"
-    :zoom="zoom"
-  >
-    <MglMarker
-      :coordinates="coordinates"
+  <div>
+    <MglMap
+      :accessToken="accessToken"
+      :mapStyle.sync="mapStyle"
+      :center="coordinates"
       :zoom="zoom"
-      color="blue"
-      draggable="True"
-      @drag="dragHandler"
-    ></MglMarker>
-  </MglMap>
+    >
+      <MglMarker
+        :coordinates="coordinates"
+        :zoom="zoom"
+        color="blue"
+        draggable="True"
+        @drag="dragHandler"
+      ></MglMarker>
+    </MglMap>
+  </div>
 </template>
 
 <script>

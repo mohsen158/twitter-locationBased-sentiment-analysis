@@ -3,7 +3,7 @@
     <sui-grid-row :columns="2">
       <sui-grid-column>
         <sui-segment piled style="height: 440px">
-          <h2>set coordination</h2>
+          <h2 class="ui header left dividing aligned">Location</h2>
           <MapBox style="height:300px" />
           <div style="margin:10px">
             <sui-label>
@@ -25,24 +25,21 @@
         <sui-segment piled>
           <AddKeywordsPanel />
         </sui-segment>
-        <sui-segment raised>
+        <sui-segment piled>
           <KeywordsPanel />
-          <SearchReportPanel />
-          <sui-button v-on:click="search" primary>Search</sui-button>
         </sui-segment>
       </sui-grid-column>
     </sui-grid-row>
     <sui-grid-row :columns="3">
       <sui-grid-column>
         <sui-segment raised>
-          fsdfsdfsfsdf
           <SearchReportPanel />
         </sui-segment>
       </sui-grid-column>
       <sui-grid-column>
-        <sui-segment raised>
-          <SearchReportPanel />
-          <docs-wireframe name="paragraph" />
+        <sui-segment piled class="ui aligned left">
+          <sui-button id="btc" v-on:click="search" primary>Search</sui-button>
+          <!-- <sui-button secondary>Secondary</sui-button> -->
         </sui-segment>
       </sui-grid-column>
       <sui-grid-column>
@@ -122,6 +119,9 @@ export default {
       },
     },
     computed: {
+      started() {
+        return this.$store.state.started;
+      },
       getFirstLessTweetes() {
         return this.$store.state.firstLessTweetes;
       },
@@ -130,6 +130,9 @@ export default {
       },
     },
     search: function() {
+      console.log(this);
+      this.$store.dispatch("start");
+
       console.log(this.$socket);
       this.$socket.emit("testEvent", {
         keyWords: this.$store.state.keyWords,

@@ -1,6 +1,7 @@
 <template>
   <div>
-    keywords
+    <h2 class="ui header left dividing aligned">Choosed keywords</h2>
+
     <div v-for="val in getKeyWords" :key="val">
       <a is="sui-label">
         {{ val }}

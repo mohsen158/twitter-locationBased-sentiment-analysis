@@ -1,7 +1,8 @@
 <template>
   <sui-form @submit="addKeywords">
+    <h2 class="ui header left dividing aligned">Add keywords</h2>
+
     <sui-form-field>
-      <label>Add Keywords</label>
       <input v-model="keywordsInput" placeholder="Ex : Trump USA" />
     </sui-form-field>
     <sui-button v-on:click="addKeywords">Add</sui-button>
@@ -14,20 +15,20 @@ export default {
   name: "AddKeywordsPanel",
   data: function() {
     return {
-      keywordsInput: ""
+      keywordsInput: "",
     };
   },
   components: {},
   props: {
-    msg: String
+    msg: String,
   },
   methods: {
     addKeywords: function(e) {
       this.$store.dispatch("addKeyword", this.keywordsInput);
       this.keywordsInput = "";
       e.preventDefault();
-    }
-  }
+    },
+  },
 };
 </script>
 

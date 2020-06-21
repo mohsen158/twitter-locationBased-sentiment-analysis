@@ -1,5 +1,11 @@
 <template>
-  <div>number of reapeted in twitters: {{ this.$store.state.tweetsCount }}</div>
+  <div>
+    <h2 class="ui header left dividing aligned">Number of repetitions</h2>
+
+    <h1 class="ui header center aligned">
+      {{ this.$store.state.tweetsCount }}
+    </h1>
+  </div>
 </template>
 
 <script>
