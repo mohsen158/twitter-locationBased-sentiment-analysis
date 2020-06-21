@@ -8,6 +8,7 @@ export default new Vuex.Store({
     coordinates: { lat: 38.90988670347028, lng: -77.03114827766372 },
     keyWords: ["trump", "good", "obama", "iran"],
     tweetsCount: "not set",
+    firstLessTweetes: [],
   },
   mutations: {
     setCoordinates(state, coord) {
@@ -29,13 +30,18 @@ export default new Vuex.Store({
     setTweetsCount(state, count) {
       state.tweetsCount = count;
     },
+    setFirstLessTweetes(state, tweets) {
+      state.firstLessTweetes = tweets;
+    },
   },
   actions: {
     SOCKET_tweetsCount({ commit }, server) {
       commit("setTweetsCount", server.tweetsCount);
       console.log(server);
     },
-
+    SOCKET_firstLessTweetes({ commit }, server) {
+      commit("setFirstLessTweetes", server.tweets);
+    },
     setCoordinates({ commit }, coord) {
       commit("setCoordinates", coord);
     },

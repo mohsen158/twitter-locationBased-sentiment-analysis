@@ -1,10 +1,11 @@
 <template>
   <div>
     keywords
-    <div v-for="val in getKeyWords" :key="val">
+    <div v-for="val in getFirstLessTweetes" :key="val.id">
       <a is="sui-label">
-        {{ val }}
-        <sui-icon name="delete" v-on:click="deleteKeyWord(val)" />
+        <sui-segment vertical>
+          {{ val.text }}
+        </sui-segment>
       </a>
     </div>
   </div>
@@ -13,15 +14,15 @@
 <script>
 // import store from "../store";
 export default {
-  name: "KeywordsPanel",
+  name: "TweetesPanel",
   components: {},
   props: {
     msg: String,
     keyWordsArray: Array,
   },
   computed: {
-    getKeyWords() {
-      return this.$store.state.keyWords;
+    getFirstLessTweetes() {
+      return this.$store.state.firstLessTweetes;
     },
   },
   data: function() {

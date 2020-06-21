@@ -50,6 +50,7 @@ io.on("connection", (socket) => {
     console.log(qString);
   });
 });
+var firstLessTweetes = false;
 
 // var start = async function () {
 //   tweetsCount = 0;
@@ -116,6 +117,10 @@ var rF = function(params) {
     searchmetadata = tweets.search_metadata;
     tweetsList = tweets.statuses;
     tweetsCount = tweetsCount + tweetsList.length;
+    if (!firstLessTweetes) {
+      io.emit("firstLessTweetes", { tweets: tweetsList });
+      firstLessTweetes = true;
+    }
     io.emit("tweetsCount", { tweetsCount: tweetsCount });
 
     if (tweetsList.length == 100) {
@@ -123,6 +128,7 @@ var rF = function(params) {
       rF(params);
       console.log(tweetsCount);
     } else {
+      firstLessTweetes = false;
       tweetsCount = 0;
       console.log("research done");
 

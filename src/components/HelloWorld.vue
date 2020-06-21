@@ -46,8 +46,8 @@
         </sui-segment>
       </sui-grid-column>
       <sui-grid-column>
-        <sui-segment raised>
-          <docs-wireframe name="paragraph" />
+        <sui-segment class="sc" raised>
+          <TweetesPanel />
         </sui-segment>
       </sui-grid-column>
     </sui-grid-row>
@@ -59,6 +59,7 @@ import MapBox from "./MapBox";
 import AddKeywordsPanel from "./AddKeywordsPanel";
 import KeywordsPanel from "./KeywordsPanel";
 import SearchReportPanel from "./SearchReportPanel";
+import TweetesPanel from "./TweetesPanel";
 const axios = require("axios");
 axios.defaults.headers.post["Content-Type"] =
   "application/x-www-form-urlencoded";
@@ -85,6 +86,7 @@ export default {
     MapBox,
     SearchReportPanel,
     KeywordsPanel,
+    TweetesPanel,
   },
 
   props: {
@@ -120,6 +122,9 @@ export default {
       },
     },
     computed: {
+      getFirstLessTweetes() {
+        return this.$store.state.firstLessTweetes;
+      },
       getKeyWords() {
         return this.$store.state.keyWords;
       },
@@ -198,5 +203,11 @@ li {
 }
 a {
   color: #42b983;
+}
+div.sc {
+  height: 300px;
+  overflow: scroll;
+  overflow-x: hidden;
+  text-align: left;
 }
 </style>
