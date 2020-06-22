@@ -24,7 +24,7 @@ export default new Vuex.Store({
     deleteKeyword(state, keyWord) {
       console.log("store mutition");
 
-      state.keyWords = state.keyWords.filter(function(item) {
+      state.keyWords = state.keyWords.filter(function (item) {
         return item !== keyWord;
       });
     },
@@ -35,7 +35,7 @@ export default new Vuex.Store({
       state.firstLessTweetes = tweets;
     },
     setStart(state) {
-      state.start = true;
+      state.started = true;
     },
   },
   actions: {
@@ -54,14 +54,14 @@ export default new Vuex.Store({
     },
     addKeyword({ commit }, keyWord) {
       var keywordsArray = [...new Set(keyWord.split(" "))];
-      keywordsArray = keywordsArray.filter(function(item) {
+      keywordsArray = keywordsArray.filter(function (item) {
         return item !== "";
       });
       let a = new Set(this.state.keyWords);
       let b = new Set(keywordsArray);
       let union = new Set([...a, ...b]);
-      console.log("union", union);
-      commit("addKeyword", union);
+      console.log("new union", [...union]);
+      commit("addKeyword", [...union]);
     },
     deleteKeyword({ commit }, keyWord) {
       console.log("store action");

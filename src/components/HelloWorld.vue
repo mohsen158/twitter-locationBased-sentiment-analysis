@@ -8,15 +8,19 @@
           <div style="margin:10px">
             <sui-label>
               <sui-icon name="map marker" color="red" />longitude
-              <sui-label-detail>{{
+              <sui-label-detail>
+                {{
                 $store.state.coordinates.lng
-              }}</sui-label-detail>
+                }}
+              </sui-label-detail>
             </sui-label>
             <sui-label>
               <sui-icon name="map marker" color="blue" />latitude
-              <sui-label-detail>{{
+              <sui-label-detail>
+                {{
                 $store.state.coordinates.lat
-              }}</sui-label-detail>
+                }}
+              </sui-label-detail>
             </sui-label>
           </div>
         </sui-segment>
@@ -38,7 +42,7 @@
       </sui-grid-column>
       <sui-grid-column>
         <sui-segment piled class="ui aligned left">
-          <sui-button id="btc" v-on:click="search" primary>Search</sui-button>
+          <sui-button :loading="$store.state.started" v-on:click="search" primary>Search</sui-button>
           <!-- <sui-button secondary>Secondary</sui-button> -->
         </sui-segment>
       </sui-grid-column>
@@ -58,6 +62,8 @@ import KeywordsPanel from "./KeywordsPanel";
 import SearchReportPanel from "./SearchReportPanel";
 import TweetesPanel from "./TweetesPanel";
 const axios = require("axios");
+import { mapState } from "vuex";
+
 axios.defaults.headers.post["Content-Type"] =
   "application/x-www-form-urlencoded";
 
@@ -72,33 +78,41 @@ var client = new Twitter({
   consumer_key: "XqA0sAFyM4j3MRtkW5p9UwANK",
   consumer_secret: "qxoCwOAfK6IzBWDCqsEgKiO9Kr74UaSCxPjhE2n5O5erInIbnb",
   bearer_token:
-    "AAAAAAAAAAAAAAAAAAAAAP160AAAAAAAYfmkXUBpLjcdAl2eXQGO4x2gjaU%3D2WDiR5cOCHrr37qKgzMb71U9XRXukpLPJaCCEM3XdOPFnC1eCw",
+    "AAAAAAAAAAAAAAAAAAAAAP160AAAAAAAYfmkXUBpLjcdAl2eXQGO4x2gjaU%3D2WDiR5cOCHrr37qKgzMb71U9XRXukpLPJaCCEM3XdOPFnC1eCw"
 });
 
 // import store from "../store";
 export default {
   name: "HelloWorld",
+  data() {
+    return {
+      test: false
+    };
+  },
+  state: {
+    starting: false
+  },
   components: {
     AddKeywordsPanel,
     MapBox,
     SearchReportPanel,
     KeywordsPanel,
-    TweetesPanel,
+    TweetesPanel
   },
 
   props: {
-    msg: String,
+    msg: String
   },
   methods: {
     async myMethod() {
       const { data } = await this.$http.patch("http://localhost:3000/search", {
-        name: "something",
+        name: "something"
       });
       console.log(data);
       // example response: { id: 1, name: "something" }
     },
     created: function() {
-      this.$socket.subscribe("news", (data) => {
+      this.$socket.subscribe("news", data => {
         console.log(data);
       });
       // `this` points to the vm instance
@@ -116,10 +130,11 @@ export default {
       // Fired when the server sends something on the "messageChannel" channel.
       messageChannel(data) {
         this.socketMessage = data;
-      },
+      }
     },
     computed: {
       started() {
+        this.data.test = this.$store.state.started;
         return this.$store.state.started;
       },
       getFirstLessTweetes() {
@@ -127,16 +142,13 @@ export default {
       },
       getKeyWords() {
         return this.$store.state.keyWords;
-      },
+      }
     },
     search: function() {
-      console.log(this);
       this.$store.dispatch("start");
-
-      console.log(this.$socket);
       this.$socket.emit("testEvent", {
         keyWords: this.$store.state.keyWords,
-        geoCode: this.$store.state.coordinates,
+        geoCode: this.$store.state.coordinates
       });
       // axios(config)
       //   .then(function(response) {
@@ -184,8 +196,8 @@ export default {
           console.log(145);
         }
       );
-    },
-  },
+    }
+  }
 };
 
 var tweetsCount = 0;

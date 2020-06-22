@@ -45,6 +45,7 @@ io.on("connection", (socket) => {
   console.log("socket connected");
   io.emit("oops", { hello: "world" });
   socket.on("testEvent", (data) => {
+    console.log(data);
     var qString = data.keyWords.join(" ");
     var geoCode = data.geoCode.lat + "," + data.geoCode.lng + ",100km";
     console.log(geoCode);
