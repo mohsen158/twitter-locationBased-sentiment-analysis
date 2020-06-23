@@ -20,7 +20,7 @@ Vue.use(VueMapbox, { mapboxgl: Mapbox });
 Vue.use(
   new VueSocketIO({
     debug: true,
-    connection: "http://localhost:3000",
+    connection: "http://localhost:5000",
     vuex: {
       store,
       actionPrefix: "SOCKET_",

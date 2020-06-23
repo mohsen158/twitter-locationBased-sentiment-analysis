@@ -9,17 +9,13 @@
             <sui-label>
               <sui-icon name="map marker" color="red" />longitude
               <sui-label-detail>
-                {{
-                $store.state.coordinates.lng
-                }}
+                {{ $store.state.coordinates.lng }}
               </sui-label-detail>
             </sui-label>
             <sui-label>
               <sui-icon name="map marker" color="blue" />latitude
               <sui-label-detail>
-                {{
-                $store.state.coordinates.lat
-                }}
+                {{ $store.state.coordinates.lat }}
               </sui-label-detail>
             </sui-label>
           </div>
@@ -51,7 +47,8 @@
             fluid
             v-on:click="search"
             primary
-          >Search</sui-button>
+            >Search</sui-button
+          >
           <!-- <sui-button secondary>Secondary</sui-button> -->
         </sui-segment>
       </sui-grid-column>
@@ -84,7 +81,7 @@ var client = new Twitter({
   consumer_key: "XqA0sAFyM4j3MRtkW5p9UwANK",
   consumer_secret: "qxoCwOAfK6IzBWDCqsEgKiO9Kr74UaSCxPjhE2n5O5erInIbnb",
   bearer_token:
-    "AAAAAAAAAAAAAAAAAAAAAP160AAAAAAAYfmkXUBpLjcdAl2eXQGO4x2gjaU%3D2WDiR5cOCHrr37qKgzMb71U9XRXukpLPJaCCEM3XdOPFnC1eCw"
+    "AAAAAAAAAAAAAAAAAAAAAP160AAAAAAAYfmkXUBpLjcdAl2eXQGO4x2gjaU%3D2WDiR5cOCHrr37qKgzMb71U9XRXukpLPJaCCEM3XdOPFnC1eCw",
 });
 
 // import store from "../store";
@@ -92,22 +89,22 @@ export default {
   name: "HelloWorld",
   data() {
     return {
-      test: false
+      test: false,
     };
   },
   state: {
-    starting: false
+    starting: false,
   },
   components: {
     AddKeywordsPanel,
     MapBox,
     SearchReportPanel,
     KeywordsPanel,
-    TweetesPanel
+    TweetesPanel,
   },
 
   props: {
-    msg: String
+    msg: String,
   },
   mounted: function() {
     this.$store.dispatch("setClientId");
@@ -119,8 +116,8 @@ export default {
   },
   methods: {
     async myMethod() {
-      const { data } = await this.$http.patch("http://localhost:3000/search", {
-        name: "something"
+      const { data } = await this.$http.patch("http://localhost:5000/search", {
+        name: "something",
       });
       console.log(data);
       // example response: { id: 1, name: "something" }
@@ -144,7 +141,7 @@ export default {
       // Fired when the server sends something on the "messageChannel" channel.
       messageChannel(data) {
         this.socketMessage = data;
-      }
+      },
     },
     computed: {
       started() {
@@ -156,7 +153,7 @@ export default {
       },
       getKeyWords() {
         return this.$store.state.keyWords;
-      }
+      },
     },
     search: function() {
       // this.$store.dispatch("start");
@@ -166,7 +163,7 @@ export default {
           clientId: this.$store.state.clientId,
           keyWords: this.$store.state.keyWords,
           geoCode: this.$store.state.coordinates,
-          resIndex: this.$store.state.resaultArray.length - 1
+          resIndex: this.$store.state.resaultArray.length - 1,
         });
       } catch (err) {
         console.log(err);
@@ -217,8 +214,8 @@ export default {
           console.log(145);
         }
       );
-    }
-  }
+    },
+  },
 };
 
 var tweetsCount = 0;
