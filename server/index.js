@@ -44,17 +44,24 @@ app.post("/search", (request, response) => {
 io.on("connection", (socket) => {
   console.log("socket connected");
   io.emit("oops", { hello: "world" });
-  socket.on("testEvent", (data) => {
+  socket.on("search", (data) => {
     console.log(data);
     var qString = data.keyWords.join(" ");
     var geoCode = data.geoCode.lat + "," + data.geoCode.lng + ",100km";
     console.log(geoCode);
-    params = { q: qString, geocode: geoCode, count: 100, max_id: 1 };
-    rF(params);
+    params = {
+      q: qString,
+      geocode: geoCode,
+      count: 100,
+      max_id: 1,
+    };
+    var metaData = { clientId: data.clientId, resIndex: data.resIndex };
+    var firstLessTweetes = false;
+    var tweetsCount = 0;
+    rF(params, metaData, firstLessTweetes, tweetsCount);
     console.log(qString);
   });
 });
-var firstLessTweetes = false;
 
 // var start = async function () {
 //   tweetsCount = 0;
@@ -89,8 +96,8 @@ var firstLessTweetes = false;
 // };
 
 // start();
-tweetsCount = 0;
-var rF = function(params) {
+
+var rF = function(params, metaData, firstLessTweetes, tweetsCount) {
   console.log("function start");
   // socket.emit("test2", { hello: "world" });
 
@@ -118,23 +125,28 @@ var rF = function(params) {
       console.log(error);
       return;
     }
+
     searchmetadata = tweets.search_metadata;
     tweetsList = tweets.statuses;
     tweetsCount = tweetsCount + tweetsList.length;
     if (!firstLessTweetes) {
-      io.emit("firstLessTweetes", { tweets: tweetsList });
+      try {
+        io.emit("firstLessTweetes", { tweets: tweetsList, metaData: metaData });
+      } catch (err) {
+        console.log(err);
+      }
       firstLessTweetes = true;
     }
-    io.emit("tweetsCount", { tweetsCount: tweetsCount });
+    io.emit("updateResault", { tweetsCount: tweetsCount, metaData });
 
     if (tweetsList.length == 100) {
       params.max_id = tweetsList[tweetsList.length - 1].id - 1;
-      rF(params);
+      rF(params, metaData, firstLessTweetes, tweetsCount);
       console.log(tweetsCount);
     } else {
-      firstLessTweetes = false;
       tweetsCount = 0;
       console.log("research done");
+      io.emit("doneSearch", { metaData });
 
       return;
     }

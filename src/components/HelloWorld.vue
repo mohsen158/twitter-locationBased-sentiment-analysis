@@ -29,27 +29,34 @@
         <sui-segment piled>
           <AddKeywordsPanel />
         </sui-segment>
-        <sui-segment piled>
+        <sui-segment
+          piled
+          style="height:240px; overflow: scroll;
+  overflow-x: hidden;
+  text-align: left;"
+        >
           <KeywordsPanel />
         </sui-segment>
       </sui-grid-column>
     </sui-grid-row>
     <sui-grid-row :columns="3">
       <sui-grid-column>
-        <sui-segment raised>
-          <SearchReportPanel />
-        </sui-segment>
+        <SearchReportPanel class="sc" />
       </sui-grid-column>
       <sui-grid-column>
         <sui-segment piled class="ui aligned left">
-          <sui-button :loading="$store.state.started" v-on:click="search" primary>Search</sui-button>
+          <sui-button
+            :loading="$store.state.started"
+            size="massive"
+            fluid
+            v-on:click="search"
+            primary
+          >Search</sui-button>
           <!-- <sui-button secondary>Secondary</sui-button> -->
         </sui-segment>
       </sui-grid-column>
       <sui-grid-column>
-        <sui-segment class="sc" raised>
-          <TweetesPanel />
-        </sui-segment>
+        <TweetesPanel class="sc" />
       </sui-grid-column>
     </sui-grid-row>
   </sui-grid>
@@ -62,7 +69,6 @@ import KeywordsPanel from "./KeywordsPanel";
 import SearchReportPanel from "./SearchReportPanel";
 import TweetesPanel from "./TweetesPanel";
 const axios = require("axios");
-import { mapState } from "vuex";
 
 axios.defaults.headers.post["Content-Type"] =
   "application/x-www-form-urlencoded";
@@ -103,6 +109,14 @@ export default {
   props: {
     msg: String
   },
+  mounted: function() {
+    this.$store.dispatch("setClientId");
+
+    this.$nextTick(function() {
+      // Code that will run only after the
+      // entire view has been rendered
+    });
+  },
   methods: {
     async myMethod() {
       const { data } = await this.$http.patch("http://localhost:3000/search", {
@@ -112,9 +126,9 @@ export default {
       // example response: { id: 1, name: "something" }
     },
     created: function() {
-      this.$socket.subscribe("news", data => {
-        console.log(data);
-      });
+      // this.$socket.subscribe("news", data => {
+      //   console.log(data);
+      // });
       // `this` points to the vm instance
     },
     sockets: {
@@ -145,11 +159,19 @@ export default {
       }
     },
     search: function() {
-      this.$store.dispatch("start");
-      this.$socket.emit("testEvent", {
-        keyWords: this.$store.state.keyWords,
-        geoCode: this.$store.state.coordinates
-      });
+      // this.$store.dispatch("start");
+      this.$store.dispatch("addNewResault");
+      try {
+        this.$socket.emit("search", {
+          clientId: this.$store.state.clientId,
+          keyWords: this.$store.state.keyWords,
+          geoCode: this.$store.state.coordinates,
+          resIndex: this.$store.state.resaultArray.length - 1
+        });
+      } catch (err) {
+        console.log(err);
+      }
+      console.log("iam in searcsdddddh");
       // axios(config)
       //   .then(function(response) {
       //     console.log(JSON.stringify(response.data));
@@ -169,7 +191,6 @@ export default {
       //   .catch(function(error) {
       //     console.log(error);
       //   });
-      console.log("iam in searcsdddddh");
 
       //this.rF(1);
     },
@@ -220,7 +241,7 @@ a {
   color: #42b983;
 }
 div.sc {
-  height: 300px;
+  height: 400px;
   overflow: scroll;
   overflow-x: hidden;
   text-align: left;
